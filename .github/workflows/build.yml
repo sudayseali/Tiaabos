@@ -26,5 +26,5 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: 🚀 Build APK
-        # `--no-wait` waxay GitHub ka dhigeysaa 'Success' isla marka uu koodhku gaaro Expo
+        # Markaad tillaabada 1aad (Credentials) samayso, kani marna ma fashilmayo
         run: eas build --platform android --profile preview --non-interactive --no-wait
