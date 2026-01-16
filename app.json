@@ -3,16 +3,30 @@
     "name": "xisnulmuslim",
     "slug": "xisnulmuslim",
     "version": "1.0.0",
-    "extra": {
-      "eas": {
-        "projectId": "008f9324-86d6-40a1-ae5b-88056ca7d57e"
-      }
+    "orientation": "portrait",
+    "icon": "./512.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./512.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
     },
     "android": {
       "package": "com.sudayse.xisnulmuslim",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./192.png",
         "backgroundColor": "#ffffff"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "008f9324-86d6-40a1-ae5b-88056ca7d57e"
       }
     }
   }
