@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "xisnulmuslim",
+    "slug": "xisnul-muslim-app",
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "008f9324-86d6-40a1-ae5b-88056ca7d57e"
+      }
+    },
+    "android": {
+      "package": "com.magacaaga.xisnulmuslim"
+    }
+  }
+}
