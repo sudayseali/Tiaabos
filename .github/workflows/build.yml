@@ -15,8 +15,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
-
+          # Waxaan ka saarnay 'cache' maadaama package-lock.json uusan jirin
+          
       - name: 🏗 Setup Java
         uses: actions/setup-java@v4
         with:
@@ -27,21 +27,23 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: 📦 Install dependencies
-        run: npm install --legacy-peer-deps
+        # Waxaan isticmaalaynaa --no-package-lock si uusan u weydiin faylkaas
+        run: npm install --legacy-peer-deps --no-package-lock
 
       - name: 🛠 Prebuild (Create Android Folder)
-        # Tallaabadan waxay dhalinaysaa fayllada Android-ka ee gudaha GitHub
-        run: npx expo prebuild --platform android
+        # Waxaan ku darnay --no-install si uusan mar kale npm u bilaabin
+        run: npx expo prebuild --platform android --no-install
 
-      - name: 🚀 Build APK (Assemble Release)
-        # Kani wuxuu si toos ah u dhisayaa APK-ga isagoo aan EAS isticmaalin
+      - name: 🔐 Fix Gradle Permissions
+        # Tallaabadan waxay xallisaa ciladda 'Permission Denied' ee Gradle
+        run: chmod +x android/gradlew
+
+      - name: 🚀 Build APK
         run: |
           cd android
-          chmod +x gradlew
           ./gradlew assembleRelease
 
       - name: 📤 Upload APK Artifact
-        # Tallaabadan waxay APK-ga kuu dhigaysaa qaybta "Artifacts" ee GitHub
         uses: actions/upload-artifact@v4
         with:
           name: Xisnul-Muslim-APK
