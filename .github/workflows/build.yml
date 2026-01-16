@@ -26,5 +26,4 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: 🚀 Build APK
-        # Haddii Credentials-ka aad Expo Dashboard ka dhashay, kani waa guul!
-        run: eas build --platform android --profile preview --non-interactive
+        run: eas build --platform android --profile preview --non-interactive --no-wait
