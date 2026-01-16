@@ -1,4 +1,4 @@
-name: Build APK
+name: Build Android APK
 on:
   push:
     branches:
@@ -15,16 +15,34 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
 
-      - name: 🏗 Setup Expo and EAS
-        uses: expo/expo-github-action@v8
+      - name: 🏗 Setup Java
+        uses: actions/setup-java@v4
         with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🏗 Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: 📦 Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: 🚀 Build APK
-        # Markaad tillaabada 1aad (Credentials) samayso, kani marna ma fashilmayo
-        run: eas build --platform android --profile preview --non-interactive --no-wait
+      - name: 🛠 Prebuild (Create Android Folder)
+        # Tallaabadan waxay dhalinaysaa fayllada Android-ka ee gudaha GitHub
+        run: npx expo prebuild --platform android
+
+      - name: 🚀 Build APK (Assemble Release)
+        # Kani wuxuu si toos ah u dhisayaa APK-ga isagoo aan EAS isticmaalin
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease
+
+      - name: 📤 Upload APK Artifact
+        # Tallaabadan waxay APK-ga kuu dhigaysaa qaybta "Artifacts" ee GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: Xisnul-Muslim-APK
+          path: android/app/build/outputs/apk/release/*.apk
