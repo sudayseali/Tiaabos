@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "xisnulmuslim",
-    "slug": "xisnulmuslim", 
+    "slug": "xisnulmuslim",
     "version": "1.0.0",
     "extra": {
       "eas": {
@@ -9,7 +9,11 @@
       }
     },
     "android": {
-      "package": "com.magacaaga.xisnulmuslim"
+      "package": "com.sudayse.xisnulmuslim",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
     }
   }
 }
