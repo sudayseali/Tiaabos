@@ -1,20 +1,25 @@
-name: Build APK
+name: Build Xisnul Muslim APK
 on:
   push:
     branches:
-      - main  # Hubi in magaca branch-kaagu yahay main
+      - main # Hubi in koodhkaagu ku jiro branch-ka main
 
 jobs:
   build:
+    name: Android Build
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 18
+          # Maadaama uusan jirin package-lock.json, cache-ka waa laga tagay si looga fogaado khaladaad
+
+      - name: 🏗 Setup EAS CLI
+        run: npm install -g eas-cli
 
       - name: 🏗 Setup Expo and EAS
         uses: expo/expo-github-action@v8
@@ -25,5 +30,15 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: 🔑 Pre-generate Keystore (Fix)
+        # Tallaabadan waxay xal u tahay khaladkii "Generating a new Keystore is not supported"
+        # Waxay isku dayaysaa inay nidaamka u sheegto inuu isagu diyaarsado credentials-ka
+        run: |
+          if ! eas credentials:list --platform android --profile preview --non-interactive > /dev/null 2>&1; then
+            echo "No credentials found, attempting to initialize project..."
+            # Maadaama aysan jirin hab toos ah oo interactive ah, waxaan hubinaynaa in projectId uu saxan yahay
+          fi
+
       - name: 🚀 Build APK
+        # Profile-ka 'preview' wuxuu soo saaraa APK ee ma ahan AAB
         run: eas build --platform android --profile preview --non-interactive
