@@ -3,7 +3,9 @@
     "preview": {
       "android": {
         "buildType": "apk"
-      }
-    }
+      },
+      "credentialsSource": "local"
+    },
+    "production": {}
   }
 }
